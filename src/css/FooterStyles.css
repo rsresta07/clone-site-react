@@ -1,0 +1,23 @@
+footer {
+    background: #171717;
+    border-top: 1px solid #2f2f2f;
+    display: block;
+    unicode-bidi: isolate;
+    color: #fff;
+}
+
+footer ul {
+    display: inline-block;
+}
+
+footer ul li {
+    display: inline;
+    margin-right: 5px;
+    color: #fff;
+}
+
+footer ul li a {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #919191;
+}
