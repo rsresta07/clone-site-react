@@ -1,10 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchMovies } from "../js/api";
+import { Link } from "react-router-dom"; // Import Link from React Router
 import "../css/ContentStyles.css";
 
 function ContentBlock() {
+    const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadMovieDetails = async () => {
+            try {
+                const fetchedMovies = await fetchMovies();
+                if (fetchedMovies) {
+                    setMovies(fetchedMovies);
+                }
+            } catch (error) {
+                console.error("Failed to load movies: ", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadMovieDetails();
+    }, []);
+
+    // Function to generate movie sections
+    const createSectionHTML = (sectionTitle, loadMore, movieSlice) => {
+        return (
+            <div className="movies-section" key={sectionTitle}>
+                <div className="category-title">
+                    <p className="category-section">{sectionTitle}</p>
+                    <a href="#" className="browse">
+                        {loadMore}
+                    </a>
+                </div>
+                <div className="movies-grid">
+                    {movieSlice.map((movie) => (
+                        <div className="movie" key={movie.id}>
+                            {/* Use Link component instead of <a> for navigation */}
+                            <Link
+                                to={`/movie/${movie.id}`}
+                                className="movie-link"
+                            >
+                                <div className="movie-info">
+                                    <div className="rating">
+                                        {movie.rating} / 10
+                                    </div>
+                                    <div className="genre">
+                                        {movie.genres.map((genre, index) => (
+                                            <React.Fragment key={index}>
+                                                {genre}
+                                                <br />
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+                                    <div style={{ marginTop: "50px" }}>
+                                        <button className="poster-hover-details-btn">
+                                            Details
+                                        </button>
+                                    </div>
+                                </div>
+                                <img
+                                    src={movie.medium_cover_image}
+                                    alt={movie.title}
+                                />
+                                <p className="p1">{movie.title}</p>
+                                <p>{movie.year}</p>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    const popularMovies = movies.slice(0, 4);
+    const latestMovies = movies.slice(4, 12);
+    const upcomingMovies = movies.slice(12, 20);
+
     return (
-        <main class="landing">
-            <div class="content">
+        <main className="landing">
+            <div className="content">
                 <h1>Download YTS YIFY movies: HD smallest size</h1>
                 <p>
                     Welcome to the official YTS.MX website. Here you can browse
@@ -18,7 +98,7 @@ function ContentBlock() {
                     domain for YIFY Movies
                 </a>
 
-                <div class="social-links">
+                <div className="social-links">
                     <img
                         src="/telegram.svg"
                         width="16"
@@ -39,8 +119,20 @@ function ContentBlock() {
                 </div>
             </div>
 
-            {/** Data haru chai Dynamically load huncha Javascript file bata */}
-            <div id="movies-container"></div>
+            {/* Render movie sections */}
+            <div id="movies-container">
+                {createSectionHTML(
+                    "Popular Movies",
+                    "Browse More",
+                    popularMovies
+                )}
+                {createSectionHTML("Latest Movies", "Browse All", latestMovies)}
+                {createSectionHTML(
+                    "Upcoming Movies",
+                    "Request a Movie",
+                    upcomingMovies
+                )}
+            </div>
         </main>
     );
 }

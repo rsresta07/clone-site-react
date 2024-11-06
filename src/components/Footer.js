@@ -1,18 +1,46 @@
 import React from "react";
 import "../css/FooterStyles.css";
 
+// Footer items as an array of objects
+const footerItems = [
+    "YTS © 2011 - 2024",
+    "Blog",
+    "DMCA",
+    "API",
+    "RSS",
+    "Contact",
+    "Browse Movies",
+    "Requests",
+    "Login",
+    "Language",
+];
+
 function Footer() {
     return (
         <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-20">
-                        <ul class="text-center" id="footer-list"></ul>
+            <div className="container">
+                {/* First row for the footer items */}
+                <div className="row">
+                    <div className="col-xs-20">
+                        <ul className="text-center">
+                            {footerItems.map((item, index) => (
+                                <React.Fragment key={index}>
+                                    <li>
+                                        <a href="#">{item}</a>
+                                    </li>
+                                    {index < footerItems.length - 1 && (
+                                        <li>-</li>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-20">
-                        <ul class="text-center">
+
+                {/* Second row for additional links */}
+                <div className="row">
+                    <div className="col-xs-20">
+                        <ul className="text-center">
                             <li>
                                 <a href="#">EZTV</a>
                             </li>
@@ -31,9 +59,11 @@ function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-20">
-                        <ul class="text-center">
+
+                {/* Third row for the user agreement */}
+                <div className="row">
+                    <div className="col-xs-20">
+                        <ul className="text-center">
                             <li style={{ fontSize: "0.8em" }}>
                                 By using this site you agree to and accept our
                                 <a href="#">User Agreement</a>, which can be
