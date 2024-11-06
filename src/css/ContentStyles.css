@@ -22,7 +22,7 @@
 
 .movies-section {
     margin-top: 40px;
-    padding: 0 50px; /** added this*/
+    padding: 0 50px; /** added this */
 }
 
 .movies-section h2 {
@@ -35,13 +35,11 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    /* justify-content: center; */
-    /* margin: 0 50px; */
-    /** added these  */
     margin: auto;
     max-width: 1200px;
 }
 
+/* Category section title styles */
 .category-section {
     color: #fff;
     font-weight: bold;
@@ -85,33 +83,27 @@
 
 .movie {
     position: relative;
-    /**added these  */
     overflow: hidden;
     transition: transform 0.3s ease;
-
 }
 
-/** movie poster mathi hover garda rating, genre ko CSS part  */
 .movie-info {
     position: absolute;
     top: 0;
     left: 0;
-    /* right: 0; */
     height: 400px;
-    width:100%;
+    width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 5px;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.3s;
-
+    transition: opacity 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 5px solid rgb(35, 199, 35);
-    transition: opacity 0.3s ease;
 }
 
 .movie:hover .movie-info {
@@ -132,21 +124,20 @@
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
-    /* margin-top: 50px; */
     text-align: center;
     text-decoration: none;
 }
 
 .social-links {
     display: flex;
-    align-items: center; /* Vertically align items in the center */
-    justify-content: center; /* Center the content horizontally */
-    gap: 10px; /* Space between the items */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     font-size: small;
 }
 
 .social-links img {
-    margin-right: 5px; /* Space between the image and text */
+    margin-right: 5px;
 }
 
 .social-links a {
@@ -156,4 +147,88 @@
 
 .social-links label {
     color: #ccc;
+}
+
+/* Responsive Styles */
+
+/* For Mobile (max-width: 600px) */
+@media screen and (max-width: 600px) {
+    .landing {
+        padding: 50px 20px;
+    }
+
+    .content h1 {
+        font-size: 2em;
+    }
+
+    .movies-section {
+        padding: 0 20px;
+    }
+
+    .movies-grid {
+        grid-template-columns: 1fr; /* Stack movie items vertically */
+    }
+
+    .movie img {
+        height: 300px; /* Adjust the height of movie posters for smaller screens */
+    }
+
+    .rating, .genre {
+        font-size: 1em; /* Adjust font size of rating/genre on small screens */
+    }
+
+    .social-links {
+        flex-direction: column;
+    }
+
+    .social-links a {
+        font-size: 0.9em;
+    }
+
+    .social-links img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* For Tablets (600px to 1024px) */
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    .landing {
+        padding: 80px 20px;
+    }
+
+    .content h1 {
+        font-size: 2.2em;
+    }
+
+    .movies-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+    }
+
+    .movie img {
+        height: 350px;
+    }
+
+    .rating, .genre {
+        font-size: 1.2em;
+    }
+}
+
+/* For Large Screens (1024px and above) */
+@media screen and (min-width: 1024px) {
+    .landing {
+        padding: 100px 5%;
+    }
+
+    .movies-grid {
+        grid-template-columns: repeat(4, 1fr); /* Four columns on large screens */
+    }
+
+    .movie img {
+        height: 400px; /* Default height for movie posters */
+    }
+
+    .rating, .genre {
+        font-size: 1.5em; /* Larger font size on desktop */
+    }
 }

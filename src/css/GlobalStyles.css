@@ -1,16 +1,24 @@
+/* Global styles */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arimo, Arial, Helvetica, sans-serif;
     letter-spacing: -0.03em;
     font-size: 16px;
-    margin: 0;
     background-color: #1d1d1d;
     text-align: center;
-    color: #333;
+    color: #ccc; /* Changed from #333 for better contrast */
     line-height: 1.42857143;
+}
+
+/* Ensures elements do not overflow */
+html {
+    font-size: 10px;
+    width: 100%;
 }
 
 .container {
@@ -19,18 +27,17 @@ body {
     padding: 0 15px;
 }
 
+/* Flexbox grid system adjustments */
 .row {
     margin: 0 -15px;
 }
 
-html {
-    font-size: 10px;
-}
-
+/* Utility classes for layout */
 .col-xs-20 {
     width: 100%;
 }
 
+/* List styling */
 ul {
     list-style-type: disc;
     margin: 1em 0;
@@ -43,7 +50,7 @@ li {
 
 a {
     text-decoration: none;
-    color: #428bca;
+    color: #00b4d8; /* Adjusted link color for better visibility */
 }
 
 fieldset, img {
@@ -58,10 +65,12 @@ b, strong {
     font-weight: 700;
 }
 
+/* Styling for the search input */
 #quick-search-input {
-    width: 250px;
+    width: 100%; /* Make input responsive */
+    max-width: 300px; /* Limit input width */
     height: 35px;
-    font-size: 0.85em;
+    font-size: 1.2em; /* Increase font size for better legibility */
     font-weight: 700;
     color: #919191;
     border: 2px solid #333;
@@ -70,4 +79,35 @@ b, strong {
     background-color: #1d1d1d;
     background-repeat: no-repeat;
     background-position: 10px center;
+    transition: width 0.3s ease; /* Smooth transition when resizing */
+}
+
+/* Responsive Styles */
+
+/* For Mobile (max-width: 600px) */
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 14px; /* Slightly smaller font on mobile */
+    }
+
+    #quick-search-input {
+        width: 100%; /* Input takes full width on mobile */
+        font-size: 1em; /* Adjust font size on mobile */
+    }
+}
+
+/* For Tablets (600px to 1024px) */
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    #quick-search-input {
+        width: 80%; /* Input takes less width on tablet */
+        font-size: 1.1em; /* Adjust font size for tablet */
+    }
+}
+
+/* For Large Screens (1024px and above) */
+@media screen and (min-width: 1024px) {
+    #quick-search-input {
+        width: 250px; /* Keep input size fixed on larger screens */
+        font-size: 1.2em; /* Larger font size for better visibility */
+    }
 }

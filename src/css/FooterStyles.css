@@ -4,15 +4,20 @@ footer {
     display: block;
     unicode-bidi: isolate;
     color: #fff;
+    padding: 20px;
+    text-align: center;
 }
 
 footer ul {
     display: inline-block;
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
 }
 
 footer ul li {
     display: inline;
-    margin-right: 5px;
+    margin-right: 15px;
     color: #fff;
 }
 
@@ -20,4 +25,62 @@ footer ul li a {
     font-size: 0.85em;
     font-weight: 700;
     color: #919191;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer ul li a:hover {
+    color: #fff;
+}
+
+/* Responsive Styles */
+
+/* For Mobile (max-width: 600px) */
+@media screen and (max-width: 600px) {
+    footer {
+        padding: 15px;
+        font-size: 0.75em;
+    }
+
+    footer ul li {
+        display: block; /* Stack footer items vertically */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    footer ul li a {
+        font-size: 1em;
+    }
+}
+
+/* For Tablets (600px to 1024px) */
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    footer {
+        padding: 20px;
+    }
+
+    footer ul li {
+        display: inline-block; /* Keep items inline on tablets */
+        margin-right: 10px;
+    }
+
+    footer ul li a {
+        font-size: 0.9em;
+    }
+}
+
+/* For Large Screens (1024px and above) */
+@media screen and (min-width: 1024px) {
+    footer {
+        padding: 25px;
+    }
+
+    footer ul li {
+        display: inline-block; /* Keep items inline on large screens */
+        margin-right: 15px;
+    }
+
+    footer ul li a {
+        font-size: 0.85em;
+    }
 }
