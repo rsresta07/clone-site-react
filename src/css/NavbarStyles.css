@@ -1,0 +1,124 @@
+.nav-bar {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    top: 0;
+    position: relative;
+    z-index: 50;
+    background: #1d1d1d;
+    overflow: hidden;
+    color: #919191;
+    border-bottom: 1px solid #2f2f2f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+}
+
+.nav-bar2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+
+.main-nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    display: inline-block;
+}
+
+.nav-btn {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #919191;
+}
+.nav-btn:hover {
+    color: #fff;
+}
+
+.login-nav-btn,
+.register-nav-btn {
+    font-weight: 700;
+    color: #fff;
+}
+
+.login-nav-btn:hover,
+.register-nav-btn:hover {
+    color: #919191;
+}
+
+#quick-search-container {
+    position: relative;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 50;
+}
+
+.quick-search-input {
+    width: 100%;
+    /* height: 35px; */
+    /* font-size: 0.85em; */
+    /* font-weight: 700; */
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #1d1d1d;
+    /* background-repeat: no-repeat;
+    background-position: 10px center;
+    outline: none; */
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #222;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 50; /* Ensure it's above everything else */
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+}
+
+.dropdown-item {
+    background-color: #2c2c2c;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    width: 30%;
+    border-bottom: 1px solid #333;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #333;
+}
+
+.dropdown-item img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.dropdown-item p {
+    color: #ccc;
+    font-size: 0.85em;
+}
