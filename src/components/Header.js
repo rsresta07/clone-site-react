@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { searchMovies } from "../js/api"; // Adjust the import path based on your file structure
-import "../css/NavbarStyles.css"; // Make sure to import your CSS
+
+
+import React, { useState, useEffect, useRef } from "react";
+import { searchMovies } from "../js/api";
+import "../css/NavbarStyles.css";
 
 function Header() {
-    const [query, setQuery] = useState(""); // State for search input
-    const [results, setResults] = useState([]); // State for search results
-    const [isDropdownVisible, setDropdownVisible] = useState(false); // Control dropdown visibility
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState([]);
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const searchRef = useRef(null);
 
-    // Handle search input change
     const handleSearchInputChange = async (e) => {
         const value = e.target.value.trim();
         setQuery(value);
@@ -22,13 +24,17 @@ function Header() {
         }
     };
 
-    // This effect runs when the query changes
+    // Close dropdown on outside click
     useEffect(() => {
-        // Reset dropdown when query is empty
-        if (!query) {
-            setDropdownVisible(false);
-        }
-    }, [query]);
+        const handleClickOutside = (e) => {
+            if (searchRef.current && !searchRef.current.contains(e.target)) {
+                setDropdownVisible(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const displaySearchResults = () => {
         if (!results.length) {
@@ -39,9 +45,7 @@ function Header() {
             <div
                 key={movie.id}
                 className="dropdown-item"
-                onClick={() =>
-                    (window.location.href = `/movieDetails?id=${movie.id}`)
-                }
+                onClick={() => (window.location.href = `/movie/${movie.id}`)}
             >
                 <img src={movie.small_cover_image} alt={movie.title} />
                 <div>
@@ -65,7 +69,7 @@ function Header() {
             </div>
 
             <div className="nav-bar2">
-                <div id="quick-search-container">
+                <div id="quick-search-container" ref={searchRef}>
                     <input
                         className="quick-search-input"
                         id="searchInput"
@@ -80,6 +84,7 @@ function Header() {
                         </div>
                     )}
                 </div>
+                {/* Main navigation links */}
                 <div className="main-nav-links">
                     <ul className="nav-links">
                         <li>
