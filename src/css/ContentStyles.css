@@ -1,6 +1,3 @@
-/* Tailwind Custom Styles */
-
-/* Landing Section */
 .landing {
     @apply py-24 text-center z-30;
 }

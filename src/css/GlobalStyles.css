@@ -1,4 +1,3 @@
-/*Global styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,11 +10,10 @@ body {
     font-size: 16px;
     background-color: #1d1d1d;
     text-align: center;
-    color: #ccc; /* Changed from #333 for better contrast */
+    color: #ccc;
     line-height: 1.42857143;
 }
 
-/* Ensures elements do not overflow */
 html {
     font-size: 10px;
     width: 100%;
@@ -27,17 +25,14 @@ html {
     padding: 0 15px;
 }
 
-/* Flexbox grid system adjustments */
 .row {
     margin: 0 -15px;
 }
 
-/* Utility classes for layout */
 .col-xs-20 {
     width: 100%;
 }
 
-/* List styling */
 ul {
     list-style-type: disc;
     margin: 1em 0;
@@ -65,12 +60,11 @@ b, strong {
     font-weight: 700;
 }
 
-/* Styling for the search input */
 #quick-search-input {
-    width: 100%; /* Make input responsive */
-    max-width: 300px; /* Limit input width */
+    width: 100%; 
+    max-width: 300px;
     height: 35px;
-    font-size: 1.2em; /* Increase font size for better legibility */
+    font-size: 1.2em; 
     font-weight: 700;
     color: #919191;
     border: 2px solid #333;
@@ -79,35 +73,33 @@ b, strong {
     background-color: #1d1d1d;
     background-repeat: no-repeat;
     background-position: 10px center;
-    transition: width 0.3s ease; /* Smooth transition when resizing */
+    transition: width 0.3s ease; 
 }
-
-/* Responsive Styles */
 
 /* For Mobile (max-width: 600px) */
 @media screen and (max-width: 600px) {
     body {
-        font-size: 14px; /* Slightly smaller font on mobile */
+        font-size: 14px; 
     }
 
     #quick-search-input {
-        width: 100%; /* Input takes full width on mobile */
-        font-size: 1em; /* Adjust font size on mobile */
+        width: 100%; 
+        font-size: 1em; 
     }
 }
 
 /* For Tablets (600px to 1024px) */
 @media screen and (min-width: 600px) and (max-width: 1024px) {
     #quick-search-input {
-        width: 80%; /* Input takes less width on tablet */
-        font-size: 1.1em; /* Adjust font size for tablet */
+        width: 80%; 
+        font-size: 1.1em; 
     }
 }
 
 /* For Large Screens (1024px and above) */
 @media screen and (min-width: 1024px) {
     #quick-search-input {
-        width: 250px; /* Keep input size fixed on larger screens */
-        font-size: 1.2em; /* Larger font size for better visibility */
+        width: 250px; 
+        font-size: 1.2em;
     }
 }

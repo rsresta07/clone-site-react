@@ -1,4 +1,3 @@
-/* main styles */
 .landing {
     @apply p-5;
 }
@@ -7,27 +6,22 @@
     @apply max-w-[800px] mx-auto bg-[#313131] rounded-lg shadow-md p-5;
 }
 
-/* Title styling */
 #movieTitle {
     @apply text-3xl mb-5 text-gray-300 text-center;
 }
 
-/* Flex container for movie poster and details */
 .movie-container {
     @apply flex gap-5 items-start flex-wrap;
 }
 
-/* Movie poster */
 .movie-poster {
     @apply max-w-[40%] h-auto rounded-lg;
 }
 
-/* Movie details styling */
 .movie-details {
     @apply flex-1 text-gray-300 text-left;
 }
 
-/* Individual detail items */
 .movie-details div {
     @apply mb-2;
 }
@@ -56,8 +50,6 @@
 .addCart-btn:hover {
     @apply bg-[#2b8006] text-white;
 }
-
-/* Responsive Styles */
 
 /* For Mobile (max-width: 600px) */
 @media screen and (max-width: 600px) {
