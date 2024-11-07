@@ -1,86 +1,57 @@
-footer {
-    background: #171717;
-    border-top: 1px solid #2f2f2f;
-    display: block;
-    unicode-bidi: isolate;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+.footer-container {
+    @apply container mx-auto;
 }
 
-footer ul {
-    display: inline-block;
-    padding: 0;
-    list-style-type: none;
-    margin: 0;
+.footer-links {
+    @apply inline-flex flex-wrap justify-center space-x-4 md:space-x-3 lg:space-x-4;
 }
 
-footer ul li {
-    display: inline;
-    margin-right: 15px;
-    color: #fff;
+.footer-link-item {
+    @apply inline-block;
 }
 
-footer ul li a {
-    font-size: 0.85em;
-    font-weight: 700;
-    color: #919191;
-    text-decoration: none;
-    transition: color 0.3s ease;
+.footer-link-item a {
+    @apply hover:text-white text-xl text-[#919191] font-bold transition-colors duration-300;
+}
+.footer-text-sm {
+    @apply text-xl;
+}
+.footer-agreement a {
+    @apply text-[#919191] hover:text-white mx-1;
 }
 
-footer ul li a:hover {
-    color: #fff;
-}
-
-/* Responsive Styles */
-
-/* For Mobile (max-width: 600px) */
-@media screen and (max-width: 600px) {
-    footer {
-        padding: 15px;
-        font-size: 0.75em;
+@media (max-width: 600px) {
+    .footer-mobile-padding {
+        @apply p-4 text-sm;
     }
-
-    footer ul li {
-        display: block; /* Stack footer items vertically */
-        margin-right: 0;
-        margin-bottom: 10px;
+    .footer-links-mobile li {
+        @apply block mb-2;
     }
-
-    footer ul li a {
-        font-size: 1em;
+    .footer-links-mobile a {
+        @apply text-base;
     }
 }
 
-/* For Tablets (600px to 1024px) */
-@media screen and (min-width: 600px) and (max-width: 1024px) {
-    footer {
-        padding: 20px;
+@media (min-width: 600px) and (max-width: 1024px) {
+    .footer-tablet-padding {
+        @apply p-5;
     }
-
-    footer ul li {
-        display: inline-block; /* Keep items inline on tablets */
-        margin-right: 10px;
+    .footer-links-tablet li {
+        @apply inline-block mr-2;
     }
-
-    footer ul li a {
-        font-size: 0.9em;
+    .footer-links-tablet a {
+        @apply text-sm;
     }
 }
 
-/* For Large Screens (1024px and above) */
-@media screen and (min-width: 1024px) {
-    footer {
-        padding: 25px;
+@media (min-width: 1024px) {
+    .footer-large-padding {
+        @apply p-6;
     }
-
-    footer ul li {
-        display: inline-block; /* Keep items inline on large screens */
-        margin-right: 15px;
+    .footer-links-large li {
+        @apply inline-block mr-3;
     }
-
-    footer ul li a {
-        font-size: 0.85em;
+    .footer-links-large a {
+        @apply text-xs;
     }
 }

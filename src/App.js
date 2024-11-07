@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ContentBlock from "./components/ContentBlock";
 import MovieDetails from "./components/MovieDetails";
 import Footer from "./components/Footer";
+import "./css/tailwind.css";
 import "./css/GlobalStyles.css";
 import "./js/api.js";
 import Cart from "./components/Cart";

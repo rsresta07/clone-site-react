@@ -1,0 +1,93 @@
+/* src/css/tailwind.css */
+
+/* Import Tailwind's base, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+@layer base {
+  /* Reset styles */
+  * {
+    @apply box-border m-0 p-0;
+  }
+
+  html {
+    @apply text-[10px] w-full; /* Set font size and width */
+  }
+
+  body {
+    @apply font-sans text-gray-300 bg-[#1d1d1d] text-center leading-[1.42857143] tracking-[-0.03em]; /* Apply body styles */
+    font-family: 'Arimo', Arial, Helvetica, sans-serif; /* Custom font */
+  }
+
+  .container {
+    @apply mx-auto px-4; /* Center container and add padding */
+  }
+
+  /* Flexbox grid system adjustments */
+  .row {
+    @apply -mx-4; /* Negative margin for flex row */
+  }
+
+  /* Utility class for layout */
+  .col-xs-20 {
+    @apply w-full; /* Full width */
+  }
+
+  /* List styling */
+  ul {
+    @apply list-disc pl-10 my-4; /* List styles */
+  }
+
+  li {
+    @apply list-none; /* Remove list styles for li */
+  }
+
+  a {
+    @apply no-underline text-[#00b4d8]; /* Link styling */
+  }
+
+  fieldset, img {
+    @apply border-0; /* Remove borders from fieldset and img */
+  }
+
+  img {
+    @apply align-middle; /* Vertical alignment for images */
+  }
+
+  b, strong {
+    @apply font-bold; /* Bold styling */
+  }
+
+  /* Styling for the search input */
+  #quick-search-input {
+    @apply w-full max-w-[300px] h-[35px] text-xl font-bold text-[#919191] border-2 border-[#333] rounded-full px-[15px] py-4 bg-[#1d1d1d] bg-no-repeat bg-[10px_center] transition-all duration-300 ease-in-out; /* Input styling */
+  }
+
+  /* Responsive Styles */
+  /* For Mobile (max-width: 600px) */
+  @media (max-width: 600px) {
+    body {
+      @apply text-sm; /* Smaller font for mobile */
+    }
+
+    #quick-search-input {
+      @apply w-full text-base; /* Input takes full width */
+    }
+  }
+
+  /* For Tablets (600px to 1024px) */
+  @media (min-width: 600px) and (max-width: 1024px) {
+    #quick-search-input {
+      @apply w-[80%] text-lg; /* Input is smaller on tablets */
+    }
+  }
+
+  /* For Large Screens (1024px and above) */
+  @media (min-width: 1024px) {
+    #quick-search-input {
+      @apply w-[250px] text-xl; /* Fixed input width on large screens */
+    }
+  }
+}

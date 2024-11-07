@@ -22,9 +22,8 @@
 h2 {
     font-size: 1.2em;
     font-weight: bold;
-    color: #ccc;  /* Light color for movie titles */
+    color: #ccc;
     margin-bottom: 15px;
-    /* text-align: right; */
 }
 
 .bill-summary {
