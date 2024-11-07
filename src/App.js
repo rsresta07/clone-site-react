@@ -7,18 +7,25 @@ import Footer from "./components/Footer";
 import "./css/GlobalStyles.css";
 import "./js/api.js";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a QueryClient instance
+const queryClient = new QueryClient();
+
 function App() {
     return (
-        <div className="App">
-            <Header />
-            <Router>
-                <Routes>
-                    <Route path="/" element={<ContentBlock />} />
-                    <Route path="/movie/:id" element={<MovieDetails />} />
-                </Routes>
-            </Router>
-            <Footer />
-        </div>
+        <QueryClientProvider client={queryClient}>
+            <div className="App">
+                <Header />
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<ContentBlock />} />
+                        <Route path="/movie/:id" element={<MovieDetails />} />
+                    </Routes>
+                </Router>
+                <Footer />
+            </div>
+        </QueryClientProvider>
     );
 }
 

@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchMovieDetails } from "../js/api";
+import { useFetchMovieDetails } from "../js/api";
 import "../css/MovieDetailStyles.css";
 
 function MovieDetails() {
     const { id } = useParams(); // Get movie ID from route
     const navigate = useNavigate(); // For redirecting to cart page
-    const [movie, setMovie] = useState(null);
 
-    useEffect(() => {
-        const loadMovieDetails = async () => {
-            const movieDetails = await fetchMovieDetails(id);
-            setMovie(movieDetails);
-        };
-        loadMovieDetails();
-    }, [id]);
+    // Use React Query hook to fetch movie details
+    const { data: movie, isLoading, isError } = useFetchMovieDetails(id);
 
     // Function to add movie to cart
     const addToCart = () => {
@@ -47,8 +41,13 @@ function MovieDetails() {
         }
     };
 
-    if (!movie) {
+    // Loading and error handling
+    if (isLoading) {
         return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return <div>Error loading movie details. Please try again later.</div>;
     }
 
     return (
@@ -73,7 +72,9 @@ function MovieDetails() {
                         </div>
                         <div className="movie-description">
                             <strong>Description:</strong>{" "}
-                            <p style={{ textAlign: "justify" }}>{movie.description_full}</p>
+                            <p style={{ textAlign: "justify" }}>
+                                {movie.description_full}
+                            </p>
                         </div>
                         <div className="movie-price">
                             <strong>Price: </strong>

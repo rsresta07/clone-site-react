@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { fetchMovies } from "../js/api";
-import { Link } from "react-router-dom"; // Import Link from React Router
+import React from "react";
+import { useFetchMovies } from "../js/api"; // Import the React Query hook
+import { Link } from "react-router-dom";
 import "../css/ContentStyles.css";
 
 function ContentBlock() {
-    const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const page = 1; // Page number can be dynamic if pagination is added later
+    const { data: movies = [], isLoading, isError } = useFetchMovies(page); // Destructure response from useFetchMovies
 
-    useEffect(() => {
-        const loadMovieDetails = async () => {
-            try {
-                const fetchedMovies = await fetchMovies();
-                if (fetchedMovies) {
-                    setMovies(fetchedMovies);
-                }
-            } catch (error) {
-                console.error("Failed to load movies: ", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
-        loadMovieDetails();
-    }, []);
+    if (isError) {
+        return <div>Error loading movies.</div>;
+    }
 
     // Function to generate movie sections
     const createSectionHTML = (sectionTitle, loadMore, movieSlice) => {
@@ -37,7 +28,6 @@ function ContentBlock() {
                 <div className="movies-grid">
                     {movieSlice.map((movie) => (
                         <div className="movie" key={movie.id}>
-                            {/* Use Link component instead of <a> for navigation */}
                             <Link
                                 to={`/movie/${movie.id}`}
                                 className="movie-link"
@@ -73,10 +63,6 @@ function ContentBlock() {
             </div>
         );
     };
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
 
     const popularMovies = movies.slice(0, 4);
     const latestMovies = movies.slice(4, 12);

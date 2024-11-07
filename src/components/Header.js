@@ -1,31 +1,24 @@
-
-
-import React, { useState, useEffect, useRef } from "react";
-import { searchMovies } from "../js/api";
+import React, { useState, useRef } from "react";
+import { useSearchMovies } from "../js/api";
 import "../css/NavbarStyles.css";
 
 function Header() {
     const [query, setQuery] = useState("");
-    const [results, setResults] = useState([]);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const searchRef = useRef(null);
 
-    const handleSearchInputChange = async (e) => {
+    // Use the custom React Query hook for searching movies
+    const { data: results = [], isLoading } = useSearchMovies(query);
+
+    // Handle input change and show dropdown if the query length is valid
+    const handleSearchInputChange = (e) => {
         const value = e.target.value.trim();
         setQuery(value);
-
-        if (value.length > 2) {
-            const movies = await searchMovies(value);
-            setResults(movies);
-            setDropdownVisible(true);
-        } else {
-            setResults([]);
-            setDropdownVisible(false);
-        }
+        setDropdownVisible(value.length > 2);
     };
 
     // Close dropdown on outside click
-    useEffect(() => {
+    React.useEffect(() => {
         const handleClickOutside = (e) => {
             if (searchRef.current && !searchRef.current.contains(e.target)) {
                 setDropdownVisible(false);
@@ -37,6 +30,10 @@ function Header() {
     }, []);
 
     const displaySearchResults = () => {
+        if (isLoading) {
+            return <p>Loading...</p>;
+        }
+
         if (!results.length) {
             return <p>No results found</p>;
         }
@@ -84,7 +81,6 @@ function Header() {
                         </div>
                     )}
                 </div>
-                {/* Main navigation links */}
                 <div className="main-nav-links">
                     <ul className="nav-links">
                         <li>

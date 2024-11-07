@@ -1,46 +1,50 @@
-//* importing axios
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-// Create an Axios instance with the base URL
+// Axios instance
 const axiosInstance = axios.create({
     baseURL: "https://yts.mx/api/v2/", // YTS base API URL
 });
 
-//* yo function le movie list fetch garcha
-export const fetchMovies = async (page = 1) => {
-    try {
-        const response = await axiosInstance.get("/list_movies.json", {
-            params: { page },
-        });
-        return response.data.data.movies;
-    } catch (error) {
-        console.error("Error fetching movies", error);
-        return []; // Return empty array in case of error
-    }
+// Custom hook to fetch movies
+export const useFetchMovies = (page = 1) => {
+    return useQuery({
+        queryKey: ["movies", page], // query key
+        queryFn: async () => {
+            const response = await axiosInstance.get("/list_movies.json", {
+                params: { page },
+            });
+            return response.data.data.movies;
+        },
+        keepPreviousData: true,
+        staleTime: 300000,
+    });
 };
 
-//* yo function le details fetch garcha specific movie ko using ID
-export const fetchMovieDetails = async (movieId) => {
-    try {
-        const response = await axiosInstance.get("/movie_details.json", {
-            params: { movie_id: movieId },
-        });
-        return response.data.data.movie;
-    } catch (error) {
-        console.error("Error fetching movie details", error);
-        return null; // Return null if error occurs
-    }
+export const useFetchMovieDetails = (movieId) => {
+    return useQuery({
+        queryKey: ["movieDetails", movieId],
+        queryFn: async () => {
+            const response = await axiosInstance.get("/movie_details.json", {
+                params: { movie_id: movieId },
+            });
+            return response.data.data.movie;
+        },
+        enabled: !!movieId,
+        staleTime: 300000,
+    });
 };
 
-//* Function to search
-export const searchMovies = async (query) => {
-    try {
-        const response = await axiosInstance.get("/list_movies.json", {
-            params: { query_term: query },
-        });
-        return response.data.data.movies || [];
-    } catch (error) {
-        console.error("Error searching movies", error);
-        return []; 
-    }
+export const useSearchMovies = (query) => {
+    return useQuery({
+        queryKey: ["searchMovies", query],
+        queryFn: async () => {
+            const response = await axiosInstance.get("/list_movies.json", {
+                params: { query_term: query },
+            });
+            return response.data.data.movies || [];
+        },
+        enabled: !!query,
+        staleTime: 300000,
+    });
 };
