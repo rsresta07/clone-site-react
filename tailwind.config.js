@@ -1,8 +1,19 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+    content: [
+        "./src/**/*.{html,js,jsx,ts,tsx}", // Add your file paths here
+    ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                "dark-bg": "#1d1d1d",
+                "light-gray": "#ccc",
+                "link-color": "#00b4d8",
+            },
+            fontFamily: {
+                sans: ["Arimo", "Arial", "Helvetica", "sans-serif"],
+            },
+        },
     },
     plugins: [],
 };

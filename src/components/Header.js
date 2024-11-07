@@ -41,7 +41,7 @@ function Header() {
         return results.map((movie) => (
             <div
                 key={movie.id}
-                className="dropdown-item"
+                className="dropdown-item bg-[#2c2c2c] flex items-center py-1 px-2 cursor-pointer w-full border-b border-[#333] transition-colors duration-300"
                 onClick={() => (window.location.href = `/movie/${movie.id}`)}
             >
                 <img src={movie.small_cover_image} alt={movie.title} />
@@ -55,7 +55,7 @@ function Header() {
     };
 
     return (
-        <nav className="nav-bar">
+        <nav className="nav-bar mx-auto w-full top-0 relative z-50 bg-[#1d1d1d] overflow-hidden text-[#919191] border-b border-[#2f2f2f] flex justify-between items-center py-2 px-[5%]">
             <div className="nav-logo">
                 <a href="/">
                     <img
@@ -65,10 +65,10 @@ function Header() {
                 </a>
             </div>
 
-            <div className="nav-bar2">
+            <div className="nav-bar2 flex justify-between items-center w-3/5">
                 <div id="quick-search-container" ref={searchRef}>
                     <input
-                        className="quick-search-input"
+                        className="quick-search-input w-full text-white border border-[#333] rounded-full py-2 px-3 bg-[#1d1d1d]"
                         id="searchInput"
                         type="search"
                         placeholder="Quick Search"
@@ -76,13 +76,16 @@ function Header() {
                         onChange={handleSearchInputChange}
                     />
                     {isDropdownVisible && (
-                        <div id="dropdown" className="dropdown">
+                        <div
+                            id="dropdown"
+                            className="dropdown absolute top-full left-0 bg-[#222] rounded-md shadow-lg z-50 w-full max-h-72 overflow-y-auto"
+                        >
                             {displaySearchResults()}
                         </div>
                     )}
                 </div>
-                <div className="main-nav-links">
-                    <ul className="nav-links">
+                <div className="main-nav-links flex justify-between items-center flex-grow">
+                    <ul className="nav-links list-none flex gap-5">
                         <li>
                             <a href="#" className="nav-btn">
                                 Home
@@ -108,7 +111,7 @@ function Header() {
                             </a>
                         </li>
                     </ul>
-                    <ul className="nav-links">
+                    <ul className="nav-links list-none flex gap-5">
                         <li>
                             <a className="login-nav-btn" href="#">
                                 Login

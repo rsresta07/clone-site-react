@@ -17,15 +17,15 @@ const footerItems = [
 
 function Footer() {
     return (
-        <footer>
-            <div className="container">
+        <footer className="bg-[#171717] border-t border-[#2f2f2f] text-white p-5 text-center">
+            <div className="footer-container">
                 {/* First row for the footer items */}
                 <div className="row">
                     <div className="col-xs-20">
-                        <ul className="text-center">
+                        <ul className="footer-links ">
                             {footerItems.map((item, index) => (
                                 <React.Fragment key={index}>
-                                    <li>
+                                    <li className="footer-link-item">
                                         <a href="#">{item}</a>
                                     </li>
                                     {index < footerItems.length - 1 && (
@@ -40,20 +40,20 @@ function Footer() {
                 {/* Second row for additional links */}
                 <div className="row">
                     <div className="col-xs-20">
-                        <ul className="text-center">
-                            <li>
+                        <ul className="footer-links">
+                            <li className="footer-link-item">
                                 <a href="#">EZTV</a>
                             </li>
                             <li>-</li>
-                            <li>
+                            <li className="footer-link-item">
                                 <a href="#">YIFY Status</a>
                             </li>
                             <li>-</li>
-                            <li>
+                            <li className="footer-link-item">
                                 <a href="#">YTS Proxies</a>
                             </li>
                             <li>-</li>
-                            <li>
+                            <li className="footer-link-item">
                                 <a href="#">YTS Proxies (TOR)</a>
                             </li>
                         </ul>
@@ -61,16 +61,12 @@ function Footer() {
                 </div>
 
                 {/* Third row for the user agreement */}
-                <div className="row">
-                    <div className="col-xs-20">
-                        <ul className="text-center">
-                            <li style={{ fontSize: "0.8em" }}>
-                                By using this site you agree to and accept our
-                                <a href="#">User Agreement</a>, which can be
-                                read <a href="#">here</a>.
-                            </li>
-                        </ul>
-                    </div>
+                <div className="footer-text-sm">
+                    <p className="text-[#919191] font-medium footer-agreement">
+                        By using this site you agree to and accept our
+                        <a href="#">User Agreement</a>, which can be read{" "}
+                        <a href="#">here</a>.
+                    </p>
                 </div>
             </div>
         </footer>

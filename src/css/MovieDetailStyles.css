@@ -1,86 +1,60 @@
 /* main styles */
-main.landing {
-    padding: 20px;
+.landing {
+    @apply p-5;
 }
 
 .content {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #313131;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    @apply max-w-[800px] mx-auto bg-[#313131] rounded-lg shadow-md p-5;
 }
 
 /* Title styling */
 #movieTitle {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #ccc;
-    text-align: center; /* Center-align the title */
+    @apply text-3xl mb-5 text-gray-300 text-center;
 }
 
 /* Flex container for movie poster and details */
 .movie-container {
-    display: flex;
-    gap: 20px; /* Space between poster and details */
-    align-items: flex-start;
-    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    @apply flex gap-5 items-start flex-wrap;
 }
 
 /* Movie poster */
 .movie-poster {
-    max-width: 40%; /* Adjust poster width */
-    height: auto;
-    border-radius: 8px;
+    @apply max-w-[40%] h-auto rounded-lg;
 }
 
 /* Movie details styling */
 .movie-details {
-    flex: 1;
-    color: #ccc;
-    text-align: left;
+    @apply flex-1 text-gray-300 text-left;
 }
 
 /* Individual detail items */
 .movie-details div {
-    margin-bottom: 10px;
+    @apply mb-2;
 }
 
 #movieRating {
-    color: gold;
+    @apply text-yellow-400;
 }
 
 #movieDescription {
-    text-align: justify;
+    @apply text-justify;
 }
 
 .movie-price-container {
-    display: flex;
-    justify-content: space-between; /* Positions elements at opposite ends */
-    align-items: center; /* Vertically centers the content */
-    color: #ccc;
-    margin-top: 20px;
+    @apply flex justify-between items-center text-gray-300 mt-5;
 }
 
 #moviePrice {
-    color: rgb(35, 199, 35);
+    @apply text-[#23c723];
 }
 
 .addCart-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgb(35, 199, 35);
-    color: black !important;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    margin-left: 10px;
+    @apply inline-block px-5 py-2.5 bg-[#23c723] text-black rounded-lg transition-all duration-300;
+    @apply ml-2;
 }
 
 .addCart-btn:hover {
-    background-color: #2b8006;
-    color: white !important;
+    @apply bg-[#2b8006] text-white;
 }
 
 /* Responsive Styles */
@@ -88,92 +62,84 @@ main.landing {
 /* For Mobile (max-width: 600px) */
 @media screen and (max-width: 600px) {
     .content {
-        padding: 15px; /* Reduce padding for mobile */
-        max-width: 100%; /* Make content width 100% */
+        @apply p-4 max-w-full;
     }
 
     #movieTitle {
-        font-size: 1.8em; /* Smaller font size on mobile */
+        @apply text-2xl;
     }
 
     .movie-container {
-        flex-direction: column; /* Stack poster and details vertically */
-        align-items: center;
+        @apply flex-col items-center;
     }
 
     .movie-poster {
-        max-width: 80%; /* Make the poster larger on small screens */
-        margin-bottom: 20px; /* Add space below the poster */
+        @apply max-w-[80%] mb-5;
     }
 
     .movie-details {
-        text-align: center; /* Center the details on mobile */
+        @apply text-center;
     }
 
     .movie-price-container {
-        flex-direction: column; /* Stack price and button vertically */
-        align-items: center; /* Center-align price and button */
+        @apply flex-col items-center;
     }
 
     .addCart-btn {
-        margin-top: 10px; /* Add space between price and button */
+        @apply mt-2;
     }
 }
 
 /* For Tablets (600px to 1024px) */
 @media screen and (min-width: 600px) and (max-width: 1024px) {
     .content {
-        padding: 20px;
-        max-width: 80%; /* Set a maximum width for tablets */
+        @apply p-5 max-w-[80%];
     }
 
     #movieTitle {
-        font-size: 2.2em; /* Slightly smaller font size for tablets */
+        @apply text-2xl;
     }
 
     .movie-container {
-        flex-direction: column; /* Stack poster and details vertically on tablets */
+        @apply flex-col;
     }
 
     .movie-poster {
-        max-width: 60%; /* Adjust poster width for tablets */
-        margin-bottom: 20px;
+        @apply max-w-[60%] mb-5;
     }
 
     .movie-details {
-        text-align: center; /* Center the details on tablets */
+        @apply text-center;
     }
 
     .movie-price-container {
-        flex-direction: column; /* Stack price and button vertically */
-        align-items: center;
+        @apply flex-col items-center;
     }
 
     .addCart-btn {
-        margin-top: 10px; /* Add space between price and button */
+        @apply mt-2;
     }
 }
 
 /* For Large Screens (1024px and above) */
 @media screen and (min-width: 1024px) {
     .content {
-        padding: 20px;
-        max-width: 800px; /* Set a fixed width for large screens */
+        @apply p-5 max-w-[800px];
     }
 
     .movie-container {
-        gap: 40px; /* Increase the gap between poster and details */
+        @apply gap-10;
     }
 
     .movie-poster {
-        max-width: 40%; /* Maintain original poster width */
+        @apply max-w-[40%];
     }
 
     .movie-details {
-        text-align: left; /* Align details to the left */
+        @apply text-left;
     }
 
     .movie-price-container {
-        flex-direction: row; /* Keep price and button in a row */
+        @apply flex-row;
     }
 }
