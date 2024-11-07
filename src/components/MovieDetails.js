@@ -34,7 +34,7 @@ function MovieDetails() {
                 `${movie.title} has been added to the cart. Would you like to view your cart?`
             );
             if (goToCart) {
-                navigate("/cart");
+                navigate("/cart"); // Navigate to cart page if confirmed
             }
         } else {
             alert("This movie is already in the cart.");
@@ -49,7 +49,7 @@ function MovieDetails() {
     if (isError) {
         return <div>Error loading movie details. Please try again later.</div>;
     }
-
+console.log("Fetching movie details:", movie);
     return (
         <main className="landing">
             <div className="content">
