@@ -57,7 +57,7 @@ function Header() {
     return (
         <nav className="nav-bar">
             <div className="nav-logo">
-                <a href="#">
+                <a href="/">
                     <img
                         src="https://yts.mx/assets/images/website/logo-YTS.svg"
                         alt="YTS Logo"

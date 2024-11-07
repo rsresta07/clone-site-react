@@ -6,6 +6,7 @@ import MovieDetails from "./components/MovieDetails";
 import Footer from "./components/Footer";
 import "./css/GlobalStyles.css";
 import "./js/api.js";
+import Cart from "./components/Cart";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -21,6 +22,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<ContentBlock />} />
                         <Route path="/movie/:id" element={<MovieDetails />} />
+                        <Route path="/cart" element={<Cart />} />
                     </Routes>
                 </Router>
                 <Footer />
