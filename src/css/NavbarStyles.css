@@ -15,12 +15,14 @@
 }
 
 .login-nav-btn,
-.register-nav-btn {
+.register-nav-btn,
+.profile-nav-btn {
     @apply font-bold text-white;
 }
 
 .login-nav-btn:hover,
-.register-nav-btn:hover {
+.register-nav-btn:hover,
+.profile-nav-btn {
     @apply text-[#919191];
 }
 
@@ -96,7 +98,6 @@
         @apply -rotate-45 translate-x-[5px] -translate-y-[5px];
     }
 }
-
 
 /* Tablet devices (600px to 1024px) */
 @media (min-width: 600px) and (max-width: 1024px) {
