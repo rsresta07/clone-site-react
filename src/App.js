@@ -8,6 +8,9 @@ import "./css/tailwind.css";
 import "./css/GlobalStyles.css";
 import "./js/api.js";
 import Cart from "./components/Cart";
+import Login from "./components/LoginDash";
+import Register from "./components/RegisterDash";
+import UserProfile from "./components/UserProfile";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -24,6 +27,9 @@ function App() {
                         <Route path="/" element={<ContentBlock />} />
                         <Route path="/movie/:id" element={<MovieDetails />} />
                         <Route path="/cart" element={<Cart />} />
+                        <Route path="/login-auth" element={<Login />} />
+                        <Route path="/registration" element={<Register />} />
+                        <Route path="/profile" element={<UserProfile />} />
                     </Routes>
                 </Router>
                 <Footer />

@@ -1,10 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { useSearchMovies } from "../js/api";
+import { auth } from "../js/firebase-config"; // Import Firebase auth instance
 import "../css/NavbarStyles.css";
 
 function Header() {
     const [query, setQuery] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [user, setUser] = useState(null); // State to store user info
     const searchRef = useRef(null);
 
     // Use the custom React Query hook for searching movies
@@ -27,6 +30,14 @@ function Header() {
         document.addEventListener("mousedown", handleClickOutside);
         return () =>
             document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    // Listen to user authentication status
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser); // Set the current user
+        });
+        return () => unsubscribe(); // Clean up the listener on unmount
     }, []);
 
     const displaySearchResults = () => {
@@ -112,15 +123,26 @@ function Header() {
                         </li>
                     </ul>
                     <ul className="nav-links list-none flex gap-5">
-                        <li>
-                            <a className="login-nav-btn" href="#">
-                                Login
-                            </a>
-                            &nbsp;|&nbsp;
-                            <a className="register-nav-btn" href="#">
-                                Register
-                            </a>
-                        </li>
+                        {user ? (
+                            <li>
+                                <a className="profile-nav-btn" href="/profile">
+                                    User Profile
+                                </a>
+                            </li>
+                        ) : (
+                            <li>
+                                <a className="login-nav-btn" href="/login-auth">
+                                    Login
+                                </a>
+                                &nbsp;|&nbsp;
+                                <a
+                                    className="register-nav-btn"
+                                    href="/registration"
+                                >
+                                    Register
+                                </a>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
