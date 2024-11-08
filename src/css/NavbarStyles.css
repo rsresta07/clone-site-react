@@ -30,18 +30,6 @@
     @apply relative mr-2 flex items-center z-50;
 }
 
-.dropdown-item:hover {
-    @apply bg-[#333];
-}
-
-.dropdown-item img {
-    @apply w-12 h-auto mr-2;
-}
-
-.dropdown-item p {
-    @apply text-[#ccc] text-sm;
-}
-
 /* Mobile devices (up to 600px) */
 @media (max-width: 600px) {
     .nav-bar {

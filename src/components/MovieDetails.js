@@ -49,20 +49,25 @@ function MovieDetails() {
     if (isError) {
         return <div>Error loading movie details. Please try again later.</div>;
     }
-console.log("Fetching movie details:", movie);
+    console.log("Fetching movie details:", movie);
     return (
-        <main className="landing">
-            <div className="content">
-                <h1>{movie.title}</h1>
-                <div className="movie-container">
+        <main className="landing p-5">
+            <div className="content max-w-[800px] mx-auto bg-[#313131] rounded-lg shadow-md p-5;">
+                <h1 className="text-3xl mb-5 text-gray-300 text-center">
+                    {movie.title}
+                </h1>
+                <div className="movie-container flex gap-5 items-start flex-wrap">
                     <img
                         src={movie.medium_cover_image}
                         alt={movie.title}
-                        className="movie-poster"
+                        className="movie-poster max-w-[40%] h-auto rounded-lg"
                     />
-                    <div className="movie-details">
+                    <div className="movie-details flex-1 text-gray-300 text-left">
                         <div className="movie-rating">
-                            <strong>Rating:</strong> {movie.rating}
+                            <strong>Rating:</strong>{" "}
+                            <span className=" text-yellow-400">
+                                {movie.rating}
+                            </span>
                         </div>
                         <div className="movie-genre">
                             <strong>Genres:</strong> {movie.genres.join(", ")}
@@ -72,17 +77,20 @@ console.log("Fetching movie details:", movie);
                         </div>
                         <div className="movie-description">
                             <strong>Description:</strong>{" "}
-                            <p style={{ textAlign: "justify" }}>
+                            <p className="text-justify">
                                 {movie.description_full}
                             </p>
                         </div>
                         <div className="movie-price">
                             <strong>Price: </strong>
-                            <span style={{ color: "green" }}>
+                            <span className="text-[#23c723]">
                                 NPR {(250.0).toFixed(2)}
                             </span>
                         </div>
-                        <button className="addCart-btn" onClick={addToCart}>
+                        <button
+                            className="addCart-btn inline-block px-5 py-2.5 bg-[#23c723] text-black rounded-lg transition-all duration-300 ml-2"
+                            onClick={addToCart}
+                        >
                             Add to Cart
                         </button>
                     </div>

@@ -1,17 +1,5 @@
-.landing {
-    @apply py-24 text-center z-30;
-}
-
-.content h1 {
-    @apply text-6xl text-white mb-4;
-}
-
-.content p {
-    @apply text-2xl text-gray-400 mb-4;
-}
-
-.content a {
-    @apply text-2xl text-teal-400;
+.content-movies a {
+    @apply text-3xl text-teal-400;
 }
 
 .movies-section {
@@ -20,15 +8,6 @@
 
 .movies-section h2 {
     @apply text-5xl mb-5 text-white;
-}
-
-.movies-grid {
-    @apply grid grid-cols-4 gap-5 mx-auto max-w-[1200px] mb-6;
-}
-
-/* Category section title styles */
-.category-section {
-    @apply text-white font-bold text-left mb-4 text-4xl;
 }
 
 .movie img {
@@ -41,26 +20,6 @@
 
 .p1 {
     @apply font-bold;
-}
-
-.category-title {
-    @apply flex justify-between items-center;
-}
-
-.browse {
-    @apply font-bold text-gray-600;
-}
-
-.browse:hover {
-    @apply text-white;
-}
-
-.movie {
-    @apply relative overflow-hidden transition-transform duration-300 ease-in-out mb-4;
-}
-
-.movie-info {
-    @apply absolute top-0 left-0 h-[40rem] w-full bg-black bg-opacity-50 text-white p-2 text-center opacity-0 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center border-4 border-green-500;
 }
 
 .movie:hover .movie-info {
@@ -77,7 +36,7 @@
 }
 
 .social-links {
-    @apply flex items-center justify-center gap-3 text-sm;
+    @apply flex items-center justify-center gap-3 text-2xl;
 }
 
 .social-links img {
@@ -100,7 +59,7 @@
         @apply py-12 px-5;
     }
 
-    .content h1 {
+    .content-movies h1 {
         @apply text-2xl;
     }
 
@@ -140,7 +99,7 @@
         @apply py-20 px-5;
     }
 
-    .content h1 {
+    .content-movies h1 {
         @apply text-3xl;
     }
 

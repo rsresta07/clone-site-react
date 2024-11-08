@@ -1,7 +1,3 @@
-.footer-container {
-    @apply container mx-auto;
-}
-
 .footer-links {
     @apply inline-flex flex-wrap justify-center space-x-4 md:space-x-3 lg:space-x-4;
 }
@@ -12,12 +8,6 @@
 
 .footer-link-item a {
     @apply hover:text-white text-xl text-[#919191] font-bold transition-colors duration-300;
-}
-.footer-text-sm {
-    @apply text-xl;
-}
-.footer-agreement a {
-    @apply text-[#919191] hover:text-white mx-1;
 }
 
 @media (max-width: 600px) {

@@ -19,20 +19,28 @@ function ContentBlock() {
     const createSectionHTML = (sectionTitle, loadMore, movieSlice) => {
         return (
             <div className="movies-section" key={sectionTitle}>
-                <div className="category-title">
-                    <p className="category-section">{sectionTitle}</p>
-                    <a href="#" className="browse">
+                <div className="category-title flex justify-between items-center">
+                    <p className="category-section text-white font-bold text-left mb-4 text-4xl">
+                        {sectionTitle}
+                    </p>
+                    <a
+                        href="#"
+                        className="font-bold text-gray-600 hover:text-white"
+                    >
                         {loadMore}
                     </a>
                 </div>
-                <div className="movies-grid">
+                <div className="movies-grid grid grid-cols-4 gap-5 mx-auto max-w-[1200px] mb-6">
                     {movieSlice.map((movie) => (
-                        <div className="movie" key={movie.id}>
+                        <div
+                            className="movie relative overflow-hidden transition-transform duration-300 ease-in-out mb-4"
+                            key={movie.id}
+                        >
                             <Link
                                 to={`/movie/${movie.id}`}
                                 className="movie-link"
                             >
-                                <div className="movie-info">
+                                <div className="movie-info absolute top-0 left-0 h-[40rem] w-full bg-black bg-opacity-50 text-white p-2 text-center opacity-0 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center border-4 border-green-500">
                                     <div className="rating">
                                         {movie.rating} / 10
                                     </div>
@@ -69,10 +77,12 @@ function ContentBlock() {
     const upcomingMovies = movies.slice(12, 20);
 
     return (
-        <main className="landing">
-            <div className="content">
-                <h1>Download YTS YIFY movies: HD smallest size</h1>
-                <p>
+        <main className="landing py-24 text-center z-30">
+            <div className="content-movies">
+                <h1 className="text-6xl text-white mb-4">
+                    Download YTS YIFY movies: HD smallest size
+                </h1>
+                <p className="text-3xl text-gray-400 mb-4">
                     Welcome to the official YTS.MX website. Here you can browse
                     and download YIFY movies in excellent <br />
                     720p, 1080p, 2160p 4K and 3D quality, all at the smallest

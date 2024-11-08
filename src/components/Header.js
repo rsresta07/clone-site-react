@@ -1,26 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useSearchMovies } from "../js/api";
-import { auth } from "../js/firebase-config"; // Import Firebase auth instance
+import { auth } from "../js/firebase-config";
 import "../css/NavbarStyles.css";
 
 function Header() {
     const [query, setQuery] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
-    const [user, setUser] = useState(null); // State to store user info
+    const [user, setUser] = useState(null);
     const searchRef = useRef(null);
 
-    // Use the custom React Query hook for searching movies
     const { data: results = [], isLoading } = useSearchMovies(query);
 
-    // Handle input change and show dropdown if the query length is valid
     const handleSearchInputChange = (e) => {
         const value = e.target.value.trim();
         setQuery(value);
         setDropdownVisible(value.length > 2);
     };
 
-    // Close dropdown on outside click
     React.useEffect(() => {
         const handleClickOutside = (e) => {
             if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -32,12 +29,11 @@ function Header() {
             document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    // Listen to user authentication status
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser); // Set the current user
+            setUser(currentUser);
         });
-        return () => unsubscribe(); // Clean up the listener on unmount
+        return () => unsubscribe();
     }, []);
 
     const displaySearchResults = () => {
@@ -52,12 +48,16 @@ function Header() {
         return results.map((movie) => (
             <div
                 key={movie.id}
-                className="dropdown-item bg-[#2c2c2c] flex items-center py-1 px-2 cursor-pointer w-full border-b border-[#333] transition-colors duration-300"
+                className="dropdown-item bg-[#2c2c2c] flex items-center py-1 px-2 cursor-pointer w-full border-b border-[#333] transition-colors duration-300 hover:bg-[#333]"
                 onClick={() => (window.location.href = `/movie/${movie.id}`)}
             >
-                <img src={movie.small_cover_image} alt={movie.title} />
+                <img
+                    src={movie.small_cover_image}
+                    alt={movie.title}
+                    className="w-12 h-auto mr-2"
+                />
                 <div>
-                    <p>
+                    <p className="text-[#ccc] text-sm">
                         {movie.title} ({movie.year})
                     </p>
                 </div>

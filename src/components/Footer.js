@@ -18,7 +18,7 @@ const footerItems = [
 function Footer() {
     return (
         <footer className="bg-[#171717] border-t border-[#2f2f2f] text-white p-5 text-center">
-            <div className="footer-container">
+            <div className="footer-container container mx-auto">
                 {/* First row for the footer items */}
                 <div className="row">
                     <div className="col-xs-20">
@@ -61,11 +61,23 @@ function Footer() {
                 </div>
 
                 {/* Third row for the user agreement */}
-                <div className="footer-text-sm">
+                <div className="footer-text-sm text-xl">
                     <p className="text-[#919191] font-medium footer-agreement">
                         By using this site you agree to and accept our
-                        <a href="#">User Agreement</a>, which can be read{" "}
-                        <a href="#">here</a>.
+                        <a
+                            href="#"
+                            className="text-[#919191] hover:text-white mx-1"
+                        >
+                            User Agreement
+                        </a>
+                        , which can be read{" "}
+                        <a
+                            href="#"
+                            className="text-[#919191] hover:text-white mx-1"
+                        >
+                            here
+                        </a>
+                        .
                     </p>
                 </div>
             </div>
