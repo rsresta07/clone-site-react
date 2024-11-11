@@ -1,59 +1,78 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../js/firebase-config";
 
 function Login() {
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
-    const [error, setError] = useState("");
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const navigate = useNavigate();
 
-    const login = async (event) => {
-        event.preventDefault();
-        setError("");
-
+    const onSubmit = async (data) => {
         try {
-            await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+            await signInWithEmailAndPassword(auth, data.email, data.password);
             console.log("User logged in successfully");
             navigate("/profile");
         } catch (error) {
+            let alertMessage = "";
             if (error.code === "auth/user-not-found") {
-                setError("No account found with this email. Please register.");
+                alertMessage =
+                    "No account found with this email. Please register.";
             } else if (error.code === "auth/wrong-password") {
-                setError("Incorrect password. Please try again.");
+                alertMessage = "Incorrect password. Please try again.";
             } else {
-                setError("Login failed. Please try again.");
+                alertMessage = "Login failed. Please try again.";
             }
-            console.error("Error:", error.message);
+            console.error("Error:", alertMessage);
         }
     };
 
     return (
-        <div className="max-w-md mx-auto mt-16 p-6 bg-gray-950 rounded-lg shadow-lg m-6">
+        <div className="max-w-md mx-auto mt-16 p-6 bg-gray-950 rounded-lg shadow-lg">
             <h2 className="text-6xl font-bold text-white mb-6">Login</h2>
-            <form onSubmit={login} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
                     <input
                         type="email"
                         placeholder="Email"
-                        value={loginEmail}
-                        onChange={(event) => setLoginEmail(event.target.value)}
-                        required
+                        {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                message: "Invalid email address",
+                            },
+                        })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     />
+                    {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors.email.message}
+                        </p>
+                    )}
                 </div>
                 <div>
                     <input
                         type="password"
                         placeholder="Password"
-                        value={loginPassword}
-                        onChange={(event) =>
-                            setLoginPassword(event.target.value)
-                        }
-                        required
+                        {...register("password", {
+                            required: "Password is required",
+                            pattern: {
+                                value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+                                message:
+                                    "Password must be 6-20 characters long, contain at least one uppercase letter, one lowercase letter, and one number",
+                            },
+                        })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     />
+                    {errors.password && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors.password.message}
+                        </p>
+                    )}
                 </div>
                 <button
                     type="submit"
@@ -61,7 +80,6 @@ function Login() {
                 >
                     Login
                 </button>
-                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </form>
             <p className="mt-8 text-gray-400">
                 Don't have an account?{" "}

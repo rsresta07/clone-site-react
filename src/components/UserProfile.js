@@ -1,30 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../js/firebase-config";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+// src/components/UserProfile.js
+import React from "react";
+import { useUser } from "../contexts/UserContext";
 
 function UserProfile() {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        // Listen for user authentication state changes
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-            } else {
-                // Redirect to login if no user is found
-                navigate("/login-auth");
-            }
-        });
-
-        return () => unsubscribe(); // Cleanup the listener
-    }, [navigate]);
-
-    const handleLogout = async () => {
-        await signOut(auth);
-        navigate("/login-auth"); // Redirect to login page after logout
-    };
+    const { user, logout } = useUser();
 
     return (
         <div className="max-w-md mx-auto p-6 mt-20 rounded-lg shadow-lg">
@@ -36,7 +15,7 @@ function UserProfile() {
                         {user.email}
                     </p>
                     <button
-                        onClick={handleLogout}
+                        onClick={logout}
                         className="w-full px-4 py-2 mt-4 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
                     >
                         Logout
