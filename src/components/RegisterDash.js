@@ -1,127 +1,116 @@
 import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { auth } from "../js/firebase-config";
 
 function Register() {
-    const [registerEmail, setRegisterEmail] = useState("");
-    const [registerPassword, setRegisterPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [user, setUser] = useState(null);
     const [error, setError] = useState("");
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate();
 
-    const register = async (event) => {
-        event.preventDefault(); // Prevents form refresh
-        setError(""); // Clear previous errors
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
-        // Password and Confirm Password match validation
-        if (registerPassword !== confirmPassword) {
-            setError("Passwords do not match. Please try again.");
-            return;
-        }
+    const onSubmit = async (data) => {
+        setError("");
 
         try {
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
-                registerEmail,
-                registerPassword
+                data.email,
+                data.password
             );
             console.log("User registered:", userCredential.user);
-            navigate("/login-auth"); // Redirect to login page after registration
+            navigate("/login-auth");
         } catch (error) {
-            // Handle specific Firebase auth errors
+            let alertMessage = "";
             if (error.code === "auth/email-already-in-use") {
-                setError(
-                    "This email is already registered. Please try logging in."
-                );
+                alertMessage =
+                    "This email is already registered. Please try logging in.";
             } else if (error.code === "auth/invalid-email") {
-                setError(
-                    "The email address is not valid. Please enter a valid email."
-                );
+                alertMessage =
+                    "Invalid email address. Please enter a valid email.";
             } else if (error.code === "auth/weak-password") {
-                setError(
-                    "Password is too weak. Please enter a stronger password."
-                );
+                alertMessage =
+                    "Password is too weak. Please use a stronger password.";
             } else {
-                setError("Registration failed. Please try again.");
+                alertMessage = "Registration failed. Please try again.";
             }
+            setError(alertMessage);
             console.error("Error:", error.message);
         }
     };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
+            if (currentUser) {
+                navigate("/login-auth");
+            }
         });
-        return () => unsubscribe(); // Clean up the listener
-    }, []);
+        return () => unsubscribe();
+    }, [navigate]);
 
     return (
         <div className="max-w-md mx-auto mt-16 p-6 bg-gray-950 rounded-lg shadow-lg">
             <h2 className="text-6xl font-semibold text-white mb-6">Register</h2>
-            {user ? (
-                navigate("/login-auth")
-            ) : (
-                <form onSubmit={register} className="space-y-4">
-                    <div>
-                        <input
-                            id="email"
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email address"
-                            onChange={(event) =>
-                                setRegisterEmail(event.target.value)
-                            }
-                            value={registerEmail}
-                            required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            id="password"
-                            type="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            onChange={(event) =>
-                                setRegisterPassword(event.target.value)
-                            }
-                            value={registerPassword}
-                            required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            id="confirmPassword"
-                            type="password"
-                            name="confirmPassword"
-                            placeholder="Confirm your password"
-                            onChange={(event) =>
-                                setConfirmPassword(event.target.value)
-                            }
-                            value={confirmPassword}
-                            required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
-                        Register
-                    </button>
-                    {error && (
-                        <div className="mt-4 p-4 bg-red-500 text-white rounded-md text-center">
-                            {error}
-                        </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div>
+                    <input
+                        type="email"
+                        placeholder="Enter your email address"
+                        {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                message: "Invalid email address",
+                            },
+                        })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                    />
+                    {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors.email.message}
+                        </p>
                     )}
-                </form>
-            )}
+                </div>
+                <div>
+                    <input
+                        type="password"
+                        placeholder="Enter your password"
+                        {...register("password", {
+                            required: "Password is required",
+                            pattern: {
+                                value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                                message:
+                                    "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number",
+                            },
+                        })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                    />
+                    {errors.password && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors.password.message}
+                        </p>
+                    )}
+                </div>
+                <button
+                    type="submit"
+                    className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                    Register
+                </button>
+                {error && (
+                    <div className="mt-4 p-4 bg-red-500 text-white rounded-md text-center">
+                        {error}
+                    </div>
+                )}
+            </form>
         </div>
     );
 }
