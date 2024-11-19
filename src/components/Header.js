@@ -1,8 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useSearchMovies } from "../js/api";
+import { useSelector } from "react-redux";
 import { auth } from "../js/firebase-config";
 import "../css/NavbarStyles.css";
+
+/*
+ * Header component that renders the navigation bar with search and user authentication features.
+ *
+ * - Implements a search input with a dropdown for displaying search results.
+ * - Listens for authentication state changes and updates the user state accordingly.
+ * - Displays navigation links, a cart with item count, and user authentication links.
+ * - Uses external CSS for styling and integrates with Redux for managing cart state.
+ */
 
 function Header() {
     const [query, setQuery] = useState("");
@@ -12,13 +22,15 @@ function Header() {
 
     const { data: results = [], isLoading } = useSearchMovies(query);
 
+    const cartCount = useSelector((state) => state.cart.count);
+
     const handleSearchInputChange = (e) => {
         const value = e.target.value.trim();
         setQuery(value);
         setDropdownVisible(value.length > 2);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleClickOutside = (e) => {
             if (searchRef.current && !searchRef.current.contains(e.target)) {
                 setDropdownVisible(false);
@@ -36,6 +48,17 @@ function Header() {
         return () => unsubscribe();
     }, []);
 
+    /**
+     * Renders search results in a dropdown menu.
+     *
+     * - Displays a loading message when search results are being fetched.
+     * - Shows a message if no search results are found.
+     * - Maps over the search results and creates a clickable dropdown item for each movie,
+     *   redirecting to the movie's detail page on click.
+     * - Each dropdown item includes a thumbnail image and movie title with year.
+     *
+     * @returns {JSX.Element} A list of search result items or a message if loading or no results.
+     */
     const displaySearchResults = () => {
         if (isLoading) {
             return <p>Loading...</p>;
@@ -98,13 +121,13 @@ function Header() {
                 <div className="main-nav-links flex justify-between items-center flex-grow">
                     <ul className="nav-links list-none flex gap-5">
                         <li>
-                            <a href="#" className="nav-btn">
+                            <a href="/" className="nav-btn">
                                 Home
                             </a>
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/"
                                 style={{ color: "#6ac045" }}
                                 className="nav-btn"
                             >
@@ -112,16 +135,26 @@ function Header() {
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="nav-btn">
+                            <a href="/" className="nav-btn">
                                 Trending
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="nav-btn">
+                            <a href="/" className="nav-btn">
                                 Browse Movies
                             </a>
                         </li>
                     </ul>
+                    <div className="relative">
+                        <a href="/cart" className="cart-nav-btn relative">
+                            🛒 Cart
+                            {cartCount > 0 && (
+                                <span className="cart-count absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </a>
+                    </div>
                     <ul className="nav-links list-none flex gap-5">
                         {user ? (
                             <li>

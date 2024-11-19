@@ -16,6 +16,7 @@
 
 .login-nav-btn,
 .register-nav-btn,
+.cart-nav-btn,
 .profile-nav-btn {
     @apply font-bold text-white;
 }
@@ -123,4 +124,20 @@
     .nav-links {
         @apply flex justify-start;
     }
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #ff3b30;
+    color: white;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
