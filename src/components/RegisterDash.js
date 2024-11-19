@@ -6,6 +6,17 @@ import { auth } from "../js/firebase-config";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/userSlice";
 
+/**
+ * @function Register
+ * @description A component that renders a registration form with email and password fields.
+ *              It uses the useForm hook to manage form state and validation. When the form is
+ *              submitted, it calls the createUserWithEmailAndPassword function from the Firebase
+ *              auth library to create a new user. If the registration is successful, it dispatches a
+ *              setUser action with the user's information to update the Redux store and navigates to
+ *              the profile page. If the registration fails, it displays an error message with the
+ *              error code.
+ * @returns {ReactElement} A React component that renders a registration form.
+ */
 function Register() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -15,8 +26,22 @@ function Register() {
         register,
         handleSubmit,
         formState: { errors },
+        watch, // We use watch here
     } = useForm();
 
+    // Watch the password value
+    const password = watch("password");
+
+    /**
+     * Handles the form submission by calling the
+     * createUserWithEmailAndPassword function from the Firebase
+     * auth library to create a new user. If the registration is
+     * successful, it dispatches a setUser action with the user's
+     * information to update the Redux store and navigates to the
+     * profile page. If the registration fails, it displays an error
+     * message with the error code.
+     * @param {Object} data The form data containing the email and password.
+     */
     const onSubmit = async (data) => {
         setError("");
         try {
@@ -51,10 +76,11 @@ function Register() {
         <div className="max-w-md mx-auto mt-16 p-6 bg-gray-950 rounded-lg shadow-lg">
             <h2 className="text-6xl font-semibold text-white mb-6">Register</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div>
+                <div className="text-left">
+                    <label className="text-white">Email</label>
                     <input
                         type="email"
-                        placeholder="Enter your email address"
+                        placeholder="eg. bEE@example.com"
                         {...register("email", {
                             required: "Email is required",
                             pattern: {
@@ -70,10 +96,12 @@ function Register() {
                         </p>
                     )}
                 </div>
-                <div>
+
+                <div className="text-left">
+                    <label className="text-white">Password</label>
                     <input
                         type="password"
-                        placeholder="Enter your password"
+                        placeholder="Enter Password"
                         {...register("password", {
                             required: "Password is required",
                             pattern: {
@@ -90,6 +118,26 @@ function Register() {
                         </p>
                     )}
                 </div>
+
+                <div className="text-left">
+                    <label className="text-white">Confirm Password</label>
+                    <input
+                        type="password"
+                        placeholder="Confirm your password"
+                        {...register("confirmPassword", {
+                            required: "Please confirm your password",
+                            validate: (value) =>
+                                value === password || "Passwords do not match",
+                        })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                    />
+                    {errors.confirmPassword && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors.confirmPassword.message}
+                        </p>
+                    )}
+                </div>
+
                 <button
                     type="submit"
                     className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"

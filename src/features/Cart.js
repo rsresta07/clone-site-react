@@ -4,6 +4,14 @@ import { setCart, removeItem } from "../features/cartSlice";
 import "../css/CartStyles.css";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Cart component displays the cart items and their total cost.
+ *
+ * - Retrieves cart items from the Redux store.
+ * - Calculates the total cost of items in the cart and displays it.
+ * - Allows the user to remove items from the cart.
+ * - Navigates to the checkout page when the user clicks "PROCEED TO CHECKOUT".
+ */
 function Cart() {
     const [subTotal, setSubTotal] = useState(0);
     const [discount, setDiscount] = useState(0);
@@ -18,6 +26,16 @@ function Cart() {
         calculateBill(savedCart); // Update bill details
     }, [dispatch]);
 
+/**
+ * Calculates the subtotal, discount, and grand total for the given cart items.
+ *
+ * - Iterates through cart items to compute the subtotal by summing up item prices.
+ * - Applies a fixed discount rate to calculate the discount amount.
+ * - Computes the grand total by subtracting the discount from the subtotal.
+ * - Updates state variables for subtotal, discount, and grand total with formatted values.
+ *
+ * @param {Array} cartItems - List of items in the cart with price properties.
+ */
     const calculateBill = (cartItems) => {
         const discountRate = 10; // 10% discount
         const subTotal = cartItems.reduce(
@@ -32,6 +50,16 @@ function Cart() {
         setGrandTotal(grandTotal.toFixed(2));
     };
 
+/**
+ * Handles the removal of an item from the cart by index.
+ *
+ * - Filters out the item at the given index from the cart array.
+ * - Updates the local storage with the new cart state.
+ * - Dispatches the removeItem action to update the cart state in the Redux store.
+ * - Recalculates the bill details with the updated cart.
+ *
+ * @param {number} index - The index of the item to be removed from the cart.
+ */
     const handleRemove = (index) => {
         const updatedCart = cart.filter((_, i) => i !== index);
         localStorage.setItem("cart", JSON.stringify(updatedCart));

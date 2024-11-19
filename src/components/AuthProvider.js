@@ -4,6 +4,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../js/firebase-config";
 import { setUser, clearUser } from "../features/userSlice";
 
+/*
+ * Provides an authentication context to children components.
+ *
+ * Listens to authentication state changes using the onAuthStateChanged() function
+ * and dispatches either setUser or clearUser actions to the Redux store accordingly.
+ */
 const AuthProvider = ({ children }) => {
     const dispatch = useDispatch();
 

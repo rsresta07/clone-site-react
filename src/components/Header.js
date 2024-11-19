@@ -1,9 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useSearchMovies } from "../js/api";
-import { useSelector } from "react-redux"; // Import useSelector for Redux state
+import { useSelector } from "react-redux";
 import { auth } from "../js/firebase-config";
 import "../css/NavbarStyles.css";
+
+/*
+ * Header component that renders the navigation bar with search and user authentication features.
+ *
+ * - Implements a search input with a dropdown for displaying search results.
+ * - Listens for authentication state changes and updates the user state accordingly.
+ * - Displays navigation links, a cart with item count, and user authentication links.
+ * - Uses external CSS for styling and integrates with Redux for managing cart state.
+ */
 
 function Header() {
     const [query, setQuery] = useState("");
@@ -39,6 +48,17 @@ function Header() {
         return () => unsubscribe();
     }, []);
 
+    /**
+     * Renders search results in a dropdown menu.
+     *
+     * - Displays a loading message when search results are being fetched.
+     * - Shows a message if no search results are found.
+     * - Maps over the search results and creates a clickable dropdown item for each movie,
+     *   redirecting to the movie's detail page on click.
+     * - Each dropdown item includes a thumbnail image and movie title with year.
+     *
+     * @returns {JSX.Element} A list of search result items or a message if loading or no results.
+     */
     const displaySearchResults = () => {
         if (isLoading) {
             return <p>Loading...</p>;

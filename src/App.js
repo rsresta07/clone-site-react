@@ -15,6 +15,14 @@ import "./css/GlobalStyles.css";
 import "./js/api.js";
 import Cart from "./features/Cart.js";
 
+/**
+ * The main App component which renders the Router with Header, Routes and Footer components.
+ *
+ * The Routes component contains all the available routes for the application, including
+ * the home page, movie details page, cart page, login page, registration page and user profile page.
+ *
+ * @returns {JSX.Element} The main App component.
+ */
 function App() {
     return (
         <Router>

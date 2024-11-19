@@ -5,11 +5,38 @@ import { signOut } from "firebase/auth";
 import { auth } from "../js/firebase-config";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * @function UserProfile
+ * @description A component that renders the user profile page.
+ *
+ * When the component mounts, it checks if the user is logged in. If not,
+ * it displays a "Loading..." message. If the user is logged in, it renders
+ * a page with the user's email and a logout button.
+ *
+ * When the logout button is clicked, the component calls the signOut
+ * function from the Firebase auth library to log the user out. If the
+ * logout is successful, it dispatches a clearUser action to update the
+ * Redux store and navigates to the login page. If the logout fails, it
+ * displays an error message with the error code.
+ *
+ * @returns {ReactElement} A React component that renders the user
+ * profile page.
+ */
 function UserProfile() {
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    /**
+     * @function logout
+     * @description Logs the user out by calling the signOut function
+     *              from the Firebase auth library and dispatching a
+     *              clearUser action to update the Redux store.
+     *
+     * @returns {Promise<void>} A Promise that resolves if the logout
+     * is successful, or rejects with an error message if the logout
+     * fails.
+     */
     const logout = async () => {
         try {
             await signOut(auth);

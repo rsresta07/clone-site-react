@@ -1,11 +1,23 @@
 import React from "react";
-import { useFetchMovies } from "../js/api"; // Import the React Query hook
+import { useFetchMovies } from "../js/api";
 import { Link } from "react-router-dom";
 import "../css/ContentStyles.css";
 
+/**
+ * Renders the main content block displaying sections of movies.
+ * Fetches movies data using the custom hook `useFetchMovies` and
+ * categorizes them into popular, latest, and upcoming movies.
+ * Each category section is rendered with a title, a link for more
+ * options, and a grid of movies with details such as title, year,
+ * and a button for more information.
+ * It also includes introductory text and social media links.
+ *
+ * @returns {JSX.Element} The main content block with categorized movie sections.
+ */
+
 function ContentBlock() {
-    const page = 1; // Page number can be dynamic if pagination is added later
-    const { data: movies = [], isLoading, isError } = useFetchMovies(page); // Destructure response from useFetchMovies
+    const page = 1;
+    const { data: movies = [], isLoading, isError } = useFetchMovies(page);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -15,7 +27,17 @@ function ContentBlock() {
         return <div>Error loading movies.</div>;
     }
 
-    // Function to generate movie sections
+    /**
+     * Creates a section of movies with a title, load more link, and a grid of movies.
+     * The grid contains movie details such as title, year, and a button for more information.
+     *
+     * @param {string} sectionTitle - The title for the section of movies.
+     * @param {string} loadMore - The text for the "Load More" link.
+     * @param {Array} movieSlice - An array of movie objects to be rendered in the section.
+     *
+     * @returns {JSX.Element} The HTML for the section of movies.
+     */
+
     const createSectionHTML = (sectionTitle, loadMore, movieSlice) => {
         return (
             <div className="movies-section" key={sectionTitle}>
@@ -24,7 +46,7 @@ function ContentBlock() {
                         {sectionTitle}
                     </p>
                     <a
-                        href="#"
+                        href="/"
                         className="font-bold text-gray-600 hover:text-white"
                     >
                         {loadMore}
@@ -89,7 +111,7 @@ function ContentBlock() {
                     file size. YTS Movies Torrents.
                 </p>
 
-                <a href="#">
+                <a href="/">
                     <strong>IMPORTANT</strong> - YTS.MX is the only new official
                     domain for YIFY Movies
                 </a>
@@ -101,7 +123,7 @@ function ContentBlock() {
                         height="16"
                         alt="telegram logo"
                     />
-                    <a href="#">@YTSMX_UPDATES</a>
+                    <a href="/">@YTSMX_UPDATES</a>
                     <label style={{ color: "#ccc" }}> | </label>
                     <img
                         src="/twitter.svg"
@@ -109,7 +131,7 @@ function ContentBlock() {
                         height="16"
                         alt="twitter logo"
                     />
-                    <a href="#">
+                    <a href="/">
                         Follow @YTSYIFY for upcoming featured movies!
                     </a>
                 </div>

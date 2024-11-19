@@ -3,14 +3,33 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useFetchMovieDetails } from "../js/api";
 import "../css/MovieDetailStyles.css";
 
+/**
+ * MovieDetails component fetches and displays detailed information about a specific movie.
+ *
+ * - Utilizes the `useFetchMovieDetails` hook to retrieve movie data based on a movie ID from URL parameters.
+ * - Displays a loading message while data is being fetched, and an error message if fetching fails.
+ * - Renders movie details including title, rating, genres, runtime, description, and price.
+ * - Provides an "Add to Cart" button that adds the movie to the local storage cart.
+ * - Prompts the user to view the cart after a movie is added, with navigation to the cart page.
+ *
+ * @returns {JSX.Element} The rendered movie details component.
+ */
 function MovieDetails() {
-    const { id } = useParams(); // Get movie ID from route
-    const navigate = useNavigate(); // For redirecting to cart page
+    const { id } = useParams();
+    const navigate = useNavigate();
 
-    // Use React Query hook to fetch movie details
     const { data: movie, isLoading, isError } = useFetchMovieDetails(id);
 
-    // Function to add movie to cart
+    /**
+     * Adds the current movie to the cart stored in local storage.
+     *
+     * - Constructs a movie data object with details such as id, title, price,
+     *   poster, description, rating, genres, duration, and cast.
+     * - Retrieves the existing cart from local storage or initializes an empty array.
+     * - Checks if the movie is already in the cart; if not, adds it and updates local storage.
+     * - Prompts the user to view the cart after adding the movie, with navigation to the cart page.
+     * - Alerts the user if the movie is already in the cart.
+     */
     const addToCart = () => {
         const movieData = {
             id,
@@ -34,7 +53,7 @@ function MovieDetails() {
                 `${movie.title} has been added to the cart. Would you like to view your cart?`
             );
             if (goToCart) {
-                navigate("/cart"); // Navigate to cart page if confirmed
+                navigate("/cart");
             }
         } else {
             alert("This movie is already in the cart.");
