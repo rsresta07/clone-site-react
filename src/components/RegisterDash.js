@@ -9,6 +9,7 @@ import { auth } from "../js/firebase-config";
 
 function Register() {
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true); 
     const navigate = useNavigate();
 
     const {
@@ -51,10 +52,14 @@ function Register() {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 navigate("/login-auth");
+            } else {
+                setLoading(false); 
             }
         });
         return () => unsubscribe();
     }, [navigate]);
+
+    if (loading) return <p>Loading...</p>;
 
     return (
         <div className="max-w-md mx-auto mt-16 p-6 bg-gray-950 rounded-lg shadow-lg">

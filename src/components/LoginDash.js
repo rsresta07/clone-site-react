@@ -83,7 +83,7 @@ function Login() {
             </form>
             <p className="mt-8 text-gray-400">
                 Don't have an account?{" "}
-                <a href="/register" className="text-blue-500 hover:underline">
+                <a href="/registration" className="text-blue-500 hover:underline">
                     Register
                 </a>
             </p>
