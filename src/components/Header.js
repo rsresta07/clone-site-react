@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useSearchMovies } from "../js/api";
+import { useSelector } from "react-redux"; // Import useSelector for Redux state
 import { auth } from "../js/firebase-config";
 import "../css/NavbarStyles.css";
 
@@ -12,13 +13,15 @@ function Header() {
 
     const { data: results = [], isLoading } = useSearchMovies(query);
 
+    const cartCount = useSelector((state) => state.cart.count);
+
     const handleSearchInputChange = (e) => {
         const value = e.target.value.trim();
         setQuery(value);
         setDropdownVisible(value.length > 2);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleClickOutside = (e) => {
             if (searchRef.current && !searchRef.current.contains(e.target)) {
                 setDropdownVisible(false);
@@ -98,13 +101,13 @@ function Header() {
                 <div className="main-nav-links flex justify-between items-center flex-grow">
                     <ul className="nav-links list-none flex gap-5">
                         <li>
-                            <a href="#" className="nav-btn">
+                            <a href="/" className="nav-btn">
                                 Home
                             </a>
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/"
                                 style={{ color: "#6ac045" }}
                                 className="nav-btn"
                             >
@@ -112,16 +115,26 @@ function Header() {
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="nav-btn">
+                            <a href="/" className="nav-btn">
                                 Trending
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="nav-btn">
+                            <a href="/" className="nav-btn">
                                 Browse Movies
                             </a>
                         </li>
                     </ul>
+                    <div className="relative">
+                        <a href="/cart" className="cart-nav-btn relative">
+                            🛒 Cart
+                            {cartCount > 0 && (
+                                <span className="cart-count absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </a>
+                    </div>
                     <ul className="nav-links list-none flex gap-5">
                         {user ? (
                             <li>
