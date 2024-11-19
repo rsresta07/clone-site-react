@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../js/firebase-config";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/userSlice";
 
 function Login() {
     const {
@@ -11,11 +13,25 @@ function Login() {
         formState: { errors },
     } = useForm();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onSubmit = async (data) => {
         try {
-            await signInWithEmailAndPassword(auth, data.email, data.password);
-            console.log("User logged in successfully");
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
+                data.email,
+                data.password
+            );
+
+            console.log("User logged in successfully:", userCredential.user);
+
+            dispatch(
+                setUser({
+                    uid: userCredential.user.uid,
+                    email: userCredential.user.email,
+                })
+            );
+
             navigate("/profile");
         } catch (error) {
             let alertMessage = "";
@@ -83,7 +99,10 @@ function Login() {
             </form>
             <p className="mt-8 text-gray-400">
                 Don't have an account?{" "}
-                <a href="/registration" className="text-blue-500 hover:underline">
+                <a
+                    href="/registration"
+                    className="text-blue-500 hover:underline"
+                >
                     Register
                 </a>
             </p>

@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../js/firebase-config";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/userSlice";
 
 function Register() {
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(true); 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -20,7 +19,6 @@ function Register() {
 
     const onSubmit = async (data) => {
         setError("");
-
         try {
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
@@ -28,7 +26,8 @@ function Register() {
                 data.password
             );
             console.log("User registered:", userCredential.user);
-            navigate("/login-auth");
+            dispatch(setUser(userCredential.user));
+            navigate("/profile");
         } catch (error) {
             let alertMessage = "";
             if (error.code === "auth/email-already-in-use") {
@@ -47,19 +46,6 @@ function Register() {
             console.error("Error:", error.message);
         }
     };
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                navigate("/login-auth");
-            } else {
-                setLoading(false); 
-            }
-        });
-        return () => unsubscribe();
-    }, [navigate]);
-
-    if (loading) return <p>Loading...</p>;
 
     return (
         <div className="max-w-md mx-auto mt-16 p-6 bg-gray-950 rounded-lg shadow-lg">
