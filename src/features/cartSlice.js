@@ -8,16 +8,6 @@ const cartSlice = createSlice({
     },
     reducers: {
         /**
-         * Adds an item to the cart.
-         * @param {object} action.payload - The item to add.
-         * @returns {object} The updated cart state.
-         */
-        addItem: (state, action) => {
-            state.items.push(action.payload);
-            state.count = state.items.length;
-        },
-        
-        /**
          * Removes an item from the cart by index.
          * @param {number} action.payload - The index of the item to remove.
          * @returns {object} The updated cart state.
@@ -28,7 +18,7 @@ const cartSlice = createSlice({
             );
             state.count = state.items.length;
         },
-        
+
         /**
          * Sets the cart state to the given items.
          * @param {object} action.payload - The items to set in the cart.
@@ -41,5 +31,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const { addItem, removeItem, setCart } = cartSlice.actions;
+export const { removeItem, setCart } = cartSlice.actions;
 export default cartSlice.reducer;

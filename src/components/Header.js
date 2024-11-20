@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useSearchMovies } from "../js/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../js/firebase-config";
 import "../css/NavbarStyles.css";
+import { Link } from "react-router-dom";
+import { setCart } from "../features/cartSlice";
+// import {setCardCount} from "../features/cartSlice";
 
 /*
  * Header component that renders the navigation bar with search and user authentication features.
@@ -19,10 +22,16 @@ function Header() {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const [user, setUser] = useState(null);
     const searchRef = useRef(null);
+    const dispatch = useDispatch();
 
     const { data: results = [], isLoading } = useSearchMovies(query);
 
     const cartCount = useSelector((state) => state.cart.count);
+
+    useEffect(() => {
+        const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+        dispatch(setCart(savedCart));
+    }, [dispatch]);
 
     const handleSearchInputChange = (e) => {
         const value = e.target.value.trim();
@@ -121,39 +130,38 @@ function Header() {
                 <div className="main-nav-links flex justify-between items-center flex-grow">
                     <ul className="nav-links list-none flex gap-5">
                         <li>
-                            <a href="/" className="nav-btn">
+                            <Link to="/" className="nav-btn">
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="/"
+                            <Link to="/"
                                 style={{ color: "#6ac045" }}
                                 className="nav-btn"
                             >
                                 4K
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="/" className="nav-btn">
-                                Trending
-                            </a>
+                                <Link to="/" className="nav-btn">
+                                    Trending
+                                </Link>
                         </li>
                         <li>
-                            <a href="/" className="nav-btn">
+                            <Link to="/" className="nav-btn">
                                 Browse Movies
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     <div className="relative">
-                        <a href="/cart" className="cart-nav-btn relative">
-                            🛒 Cart
+                        <Link to="/cart" className="cart-nav-btn relative">
+                            Cart
                             {cartCount > 0 && (
                                 <span className="cart-count absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                                     {cartCount}
                                 </span>
                             )}
-                        </a>
+                        </Link>
                     </div>
                     <ul className="nav-links list-none flex gap-5">
                         {user ? (

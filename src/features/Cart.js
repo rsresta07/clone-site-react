@@ -72,8 +72,8 @@ function Cart() {
             <main className="cart-container">
                 {/* Cart Items List */}
                 <div className="cart-items-list">
-                    <h2>My Cart</h2>
-                    <label>Cart Length: {cart.length}</label>
+                    <h2 className="text-3xl font-bold">My Cart</h2>
+                    <label>Items in Cart : {cart.length}</label>
                     <div className="cart-items">
                         {cart.length > 0 ? (
                             cart.map((item, index) => (
@@ -104,7 +104,7 @@ function Cart() {
 
                 {/* Bill Summary */}
                 <div className="bill-summary">
-                    <h2>Bill Summary</h2>
+                    <h2 className="text-3xl font-bold mb-4">Bill Summary</h2>
                     <hr />
                     <div className="price-breakdown">
                         <div className="price-item">

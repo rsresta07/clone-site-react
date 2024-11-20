@@ -25,8 +25,8 @@ import Cart from "./features/Cart.js";
  */
 function App() {
     return (
-        <Router>
-            <div className="App">
+        <div className="App">
+            <Router>
                 <Header />
                 <Routes>
                     <Route path="/" element={<ContentBlock />} />
@@ -37,8 +37,8 @@ function App() {
                     <Route path="/profile" element={<UserProfile />} />
                 </Routes>
                 <Footer />
-            </div>
-        </Router>
+            </Router>
+        </div>
     );
 }
 

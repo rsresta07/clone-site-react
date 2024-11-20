@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useFetchMovieDetails } from "../js/api";
 import "../css/MovieDetailStyles.css";
+import { useDispatch } from "react-redux";
+import { setCart } from "../features/cartSlice";
 
 /**
  * MovieDetails component fetches and displays detailed information about a specific movie.
@@ -17,8 +19,14 @@ import "../css/MovieDetailStyles.css";
 function MovieDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { data: movie, isLoading, isError } = useFetchMovieDetails(id);
+
+    const cartCountUpdate = () => {
+        const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+        dispatch(setCart(savedCart));
+    };
 
     /**
      * Adds the current movie to the cart stored in local storage.
@@ -48,6 +56,8 @@ function MovieDetails() {
         if (!cart.some((item) => item.id === id)) {
             cart.push(movieData);
             localStorage.setItem("cart", JSON.stringify(cart));
+
+            cartCountUpdate();
 
             const goToCart = window.confirm(
                 `${movie.title} has been added to the cart. Would you like to view your cart?`
